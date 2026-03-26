@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">WealthWatch</string>
+
+    <!-- Navigation -->
+    <string name="nav_portfolio">Portfolyö</string>
+    <string name="nav_add">Ekle</string>
+    <string name="nav_settings">Ayarlar</string>
+    <string name="watchlist">İzleme Listesi</string>
+    <string name="market">Market</string>
+
+    <!-- Generic -->
+    <string name="yes">Evet</string>
+    <string name="cancel">İptal</string>
+    <string name="yes_delete">Evet, Sil</string>
+    <string name="delete">Sil</string>
+    <string name="save">Kaydet</string>
+    <string name="search_hint">Hisse, kripto, döviz ara.</string>
+    <string name="loading">Yükleniyor...</string>
+    <string name="error_unknown">Bir hata oluştu</string>
+    <string name="retry">Tekrar Dene</string>
+
+    <!-- Market -->
+    <string name="market_empty">Coin bulunamadı.</string>
+
+    <!-- Portfolio -->
+    <string name="portfolio_empty">%1$s portföyünüz boş.</string>
+    <string name="total_balance">Toplam Bakiye</string>
+    <string name="profit_loss">K/Z</string>
+
+    <!-- Add Asset -->
+    <string name="add_asset_title">Yeni Varlık Ekle</string>
+    <string name="asset_name_label">Varlık Adı</string>
+    <string name="asset_name_hint">Varlık Adı (örn: Bitcoin)</string>
+    <string name="asset_symbol_label">Sembol</string>
+    <string name="asset_symbol_hint">Sembol (örn: BTC)</string>
+    <string name="amount_label">Miktar</string>
+    <string name="price_label">Fiyat</string>
+    <string name="buy_price_label">Alış Fiyatı</string>
+    <string name="add_to_portfolio_button">Portfolyoma Ekle</string>
+    <string name="asset_crypto">Kripto</string>
+    <string name="asset_stock">Hisse</string>
+
+    <!-- Asset Detail -->
+    <string name="asset_detail_title">%1$s</string>
+    <string name="total_amount">Toplam Adet</string>
+    <string name="average_cost">Ortalama Maliyet</string>
+    <string name="unit_piece">Adet</string>
+    <string name="buy_button">Satın Al</string>
+    <string name="transaction_history">İşlem Geçmişi</string>
+    <string name="transaction_buy">Alış</string>
+    <string name="transaction_sell">Satış</string>
+
+    <!-- Dialogs -->
+    <string name="delete_asset_title">Varlığı Sil</string>
+    <string name="delete_asset_message">Bu varlığı silerseniz, bu varlığa ait TÜM işlem geçmişi de kalıcı olarak silinecektir. Devam etmek istiyor musunuz?</string>
+    <string name="buy_asset_dialog_title">Varlık Satın Al</string>
+    <string name="unit_price_label">Birim Fiyat</string>
+    <string name="confirm_buy">Satın Al</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Ayarlar</string>
+    <string name="settings_general">Genel</string>
+    <string name="settings_edit_profile">Profili Düzenle</string>
+    <string name="settings_notifications">Bildirimler</string>
+    <string name="settings_security">Güvenlik</string>
+    <string name="settings_preferences">Seçenekler</string>
+    <string name="settings_dark_mode">Karanlık Mod</string>
+    <string name="settings_logout">Çıkış Yap</string>
+    <string name="settings_theme">Tema</string>
+    <string name="settings_language">Dil</string>
+    <string name="theme_dark">Karanlık</string>
+    <string name="theme_light">Aydınlık</string>
+    <string name="theme_system">Sistem Varsayılanı</string>
+    <string name="language_tr">Türkçe</string>
+    <string name="language_en">İngilizce</string>
+    <string name="settings_currency">Para Birimi</string>
+    <string name="version">Versiyon %1$s</string>
+    <string name="back">Geri</string>
+    <string name="error_occurred">Bir hata oluştu</string>
+    <string name="asset_currency">Para Birimi</string>
+    <string name="error_process_delete">İşlem silinemedi.</string>
+    <string name="error_unexpected">Beklenmeyen hata</string>
+    <string name="volume">Hacim:</string>
+    <string name="note_label">Not</string>
+    <string name="market_overview">Piyasa Özeti</string>
+    <string name="currency_usd">Dolar</string>
+    <string name="currency_eur">Avro</string>
+    <string name="currency_try">TL</string>
+    <string name="currency_gbp">Pounds</string>
+    <string name="fee_label">Ücret</string>
+    <string name="market_pulse">Piyasa Nabzı 🔥</string>
+    <string name="category_crypto">Kripto paralar</string>
+    <string name="category_us_stock">ABD Hisse Senetleri</string>
+    <string name="category_tr_stock">Borsa Istanbul (BIST)</string>
+    <string name="category_currency">Para Birimleri</string>
+    <string name="category_commodity">Emtialar</string>
+    <string name="section_gainers">En Çok Kazananlar</string>
+    <string name="section_losers">En Çok Kaybedenler</string>
+    <string name="desc_expand">Genişlet</string>
+    <string name="your_assets">Varlıkların</string>
+    <string name="distribution">Dağılım</string>
+    <string name="asset_allocation">Varlık Dağılımı</string>
+    <string name="details">Detaylar</string>
+    <string name="other">Diğer</string>
+    <string name="guest_user">Misafir Üye</string>
+    <string name="log_in">Giriş Yap</string>
+    <string name="log_out">Çıkış Yap</string>
+    <string name="sign_up">Üye Ol</string>
+    <string name="log_in_or_sign_up">Giriş Yap / Üye Ol</string>
+    <string name="search">Ara</string>
+    <string name="no_assets">Varlık Yok</string>
+    <string name="top_movers">En Çok Değişenler</string>
+    <string name="suggested_assets">Önerilenler</string>
+</resources>

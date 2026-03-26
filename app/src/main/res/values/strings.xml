@@ -1,0 +1,114 @@
+<resources>
+    <string name="app_name">WealthWatch</string>
+
+    <!-- Navigation -->
+    <string name="nav_portfolio">Portfolio</string>
+    <string name="nav_add">Add</string>
+    <string name="nav_settings">Settings</string>
+    <string name="watchlist">Watchlist</string>
+    <string name="market">Market</string>
+
+    <!-- Generic -->
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="yes_delete">Yes, Delete</string>
+    <string name="delete">Delete</string>
+    <string name="save">Save</string>
+    <string name="search_hint">Search stock, crypto, currency..</string>
+    <string name="loading">Loading…</string>
+    <string name="error_unknown">Unknown error occurred</string>
+    <string name="retry">Retry</string>
+
+    <!-- Market -->
+    <string name="market_empty">No coins found.</string>
+
+    <!-- Portfolio -->
+    <string name="portfolio_empty">%1$s portfolio is empty.</string>
+    <string name="total_balance">Total Balance</string>
+    <string name="profit_loss">P/L</string>
+
+    <!-- Add Asset -->
+    <string name="add_asset_title">Add New Asset</string>
+    <string name="asset_name_label">Asset Name</string>
+    <string name="asset_name_hint">Asset Name (e.g. Bitcoin)</string>
+    <string name="asset_symbol_label">Symbol</string>
+    <string name="asset_symbol_hint">Symbol (e.g. BTC)</string>
+    <string name="amount_label">Amount</string>
+    <string name="price_label">Price</string>
+    <string name="buy_price_label">Buy Price</string>
+    <string name="add_to_portfolio_button">Add to Portfolio</string>
+    <string name="asset_crypto">Crypto</string>
+    <string name="asset_stock">Stock</string>
+
+    <!-- Asset Detail -->
+    <string name="asset_detail_title">%1$s</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="average_cost">Average Cost</string>
+    <string name="unit_piece">Units</string>
+    <string name="buy_button">Buy</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="transaction_buy">Buy</string>
+    <string name="transaction_sell">Sell</string>
+
+    <!-- Dialogs -->
+    <string name="delete_asset_title">Delete Asset</string>
+    <string name="delete_asset_message">If you delete this asset, all transaction history associated with it will be permanently deleted. Do you want to continue?</string>
+    <string name="buy_asset_dialog_title">Buy Asset</string>
+    <string name="unit_price_label">Unit Price</string>
+    <string name="confirm_buy">Buy</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_general">General</string>
+    <string name="settings_edit_profile">Edit Profile</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_security">Security</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_logout">Log Out</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_language">Language</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_system">System Default</string>
+    <string name="language_tr">Turkish</string>
+    <string name="language_en">English</string>
+    <string name="currency_usd">USD (Dollar)</string>
+    <string name="currency_eur">EUR (Euro)</string>
+    <string name="currency_try">TRY (Lira)</string>
+    <string name="currency_gbp">GBP (Pounds)</string>
+    <string name="settings_currency">Currency</string>
+    <string name="version">Version %1$s</string>
+    <string name="back">Back</string>
+    <string name="error_occurred">Error occurred</string>
+    <string name="asset_currency">Currency</string>
+    <string name="error_process_delete">The process could not be deleted.</string>
+    <string name="error_unexpected">Unexpected error</string>
+    <string name="volume">Volume:</string>
+    <string name="fee_label">Fee</string>
+    <string name="note_label">Note</string>
+    <string name="market_overview">Market Overview</string>
+    <string name="market_pulse">Market Pulse 🔥</string>
+    <string name="category_crypto">Cryptocurrencies</string>
+    <string name="category_us_stock">US Stocks</string>
+    <string name="category_tr_stock">Borsa Istanbul (BIST)</string>
+    <string name="category_currency">Currencies</string>
+    <string name="category_commodity">Commodities</string>
+    <string name="section_gainers">Top Gainers</string>
+    <string name="section_losers">Top Losers</string>
+    <string name="desc_expand">Expand</string>
+    <string name="your_assets">Your Assets</string>
+    <string name="distribution">Distribution</string>
+    <string name="asset_allocation">Asset Allocation</string>
+    <string name="details">Details</string>
+    <string name="other">Other</string>
+    <string name="guest_user">Guest User</string>
+    <string name="log_in">Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in_or_sign_up">Log In or Sign Up</string>
+    <string name="search">Search</string>
+    <string name="no_assets">No Assets</string>
+    <string name="top_movers">Top Movers</string>
+    <string name="suggested_assets">Suggessted Assets</string>
+</resources>
