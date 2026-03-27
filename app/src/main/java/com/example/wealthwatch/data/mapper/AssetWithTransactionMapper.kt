@@ -7,7 +7,8 @@ import javax.inject.Inject
 import com.example.wealthwatch.domain.model.asset.AssetWithTransactions as DomainAssetWithTransactions
 
 class AssetWithTransactionMapper @Inject constructor(
-    private val transactionMapper: TransactionMapper
+    private val transactionMapper: TransactionMapper,
+    private val assetMapper: AssetMapper
 ) : BaseMapper<AssetWithTransactions, DomainAssetWithTransactions>() {
 
     override fun map(input: AssetWithTransactions): DomainAssetWithTransactions {
@@ -20,12 +21,11 @@ class AssetWithTransactionMapper @Inject constructor(
             currentPrice = input.asset.currentPrice,
             priceChange = 0.0,
             priceChangePercent = 0.0,
-            volume = 0.0,
-            lastUpdate = System.currentTimeMillis()
+            volume = 0.0
         )
         
         return DomainAssetWithTransactions(
-            asset = input.asset.toPortfolioAsset(marketAsset),
+            asset = assetMapper.map(input.asset, marketAsset),
             transactions = input.transactions.map { transactionMapper.map(it) }
         )
     }
