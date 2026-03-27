@@ -1,7 +1,9 @@
 package com.example.wealthwatch.data.mapper
 
 import com.example.wealthwatch.core.mapper.BaseMapper
+import com.example.wealthwatch.data.remote.model.AssetModel
 import com.example.wealthwatch.data.remote.model.SearchInitialResponse
+import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.model.search.SearchInitialData
 import javax.inject.Inject
 
@@ -16,7 +18,7 @@ class SearchMapper @Inject constructor(
         )
     }
 
-    fun mapModelToAsset(dto: com.example.wealthwatch.data.remote.model.AssetModel): com.example.wealthwatch.domain.model.asset.MarketAsset {
+    fun mapModelToAsset(dto: AssetModel): MarketAsset {
         return assetModelMapper.map(dto)
     }
 }

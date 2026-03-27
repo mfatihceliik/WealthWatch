@@ -21,7 +21,7 @@ class StockMapper @Inject constructor() : BaseMapper<StockModel, MarketAsset>() 
         return MarketAsset(
             symbol = input.symbol,
             name = input.name,
-            icon = input.iconUrl ?: "",
+            icon = input.iconUrl,
             type = type,
             currentPrice = input.price,
             priceChange = input.change,

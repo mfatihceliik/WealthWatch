@@ -1,7 +1,5 @@
 package com.example.wealthwatch.domain.model.asset
 
-import com.example.wealthwatch.domain.model.PriceTrend
-
 data class MarketAsset(
     val symbol: String,
     val name: String,

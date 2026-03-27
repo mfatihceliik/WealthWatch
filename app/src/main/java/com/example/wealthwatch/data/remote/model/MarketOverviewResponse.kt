@@ -8,16 +8,16 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MarketOverviewResponse(
     @SerialName("pulse")
-    val pulse: List<MarketModel>,
+    val pulse: List<MarketModel> = emptyList(),
     @SerialName("crypto")
-    val crypto: MarketCategoryModel,
+    val crypto: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("us_stock")
-    val usStock: MarketCategoryModel,
+    val usStock: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("tr_stock")
-    val trStock: MarketCategoryModel,
+    val trStock: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("currency")
-    val currency: MarketCategoryModel,
+    val currency: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("commodity")
-    val commodity: MarketCategoryModel
+    val commodity: MarketCategoryModel = MarketCategoryModel()
 )
 

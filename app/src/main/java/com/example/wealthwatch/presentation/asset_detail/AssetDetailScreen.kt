@@ -35,7 +35,6 @@ import com.example.wealthwatch.presentation.components.WWButton
 import com.example.wealthwatch.presentation.components.WWCard
 import com.example.wealthwatch.presentation.components.WWText
 import com.example.wealthwatch.presentation.components.WWTextField
-import com.example.wealthwatch.presentation.main.topbar.TopBarEvent
 import com.example.wealthwatch.presentation.model.AssetUiModel
 import com.example.wealthwatch.ui.theme.AppTheme
 @Composable

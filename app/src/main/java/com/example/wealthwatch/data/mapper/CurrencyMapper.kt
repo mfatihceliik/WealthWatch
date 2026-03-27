@@ -21,7 +21,7 @@ class CurrencyMapper @Inject constructor() : BaseMapper<CurrencyModel, MarketAss
         return MarketAsset(
             symbol = input.symbol,
             name = input.name,
-            icon = input.iconUrl ?: "",
+            icon = input.iconUrl,
             type = type,
             currentPrice = input.price,
             priceChange = input.change,
