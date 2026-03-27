@@ -5,7 +5,7 @@ import com.example.wealthwatch.domain.model.asset.AssetType
 import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.repository.local.watchlist.WatchlistRepository
 import com.example.wealthwatch.domain.repository.remote.crypto.CryptoRepository
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
@@ -21,7 +21,7 @@ class GetWatchlistStreamUseCase @Inject constructor(
             if (state is SocketState.Connected) {
                 state.data.associateBy { it.symbol }
             } else {
-                emptyMap()
+                emptyMap<String, MarketAsset>()
             }
         }
 

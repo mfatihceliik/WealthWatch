@@ -10,13 +10,13 @@ import com.example.wealthwatch.domain.use_case.portfolio.GetPortfolioDashboardUs
 import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.base.ScreenState
 import com.example.wealthwatch.presentation.mapper.AssetUiMapper
+import com.example.wealthwatch.presentation.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
-import kotlin.collections.map
 
 @HiltViewModel
 class PortfolioViewModel @Inject constructor(
@@ -55,12 +55,6 @@ class PortfolioViewModel @Inject constructor(
                 setCurrency(event.currency)
             }
             is PortfolioUiEvent.OnAssetClick -> {
-                // Determine if we need to do anything here (e.g. analytics).
-                // Navigation is likely handled by the caller/effect, but if we want MVI strictness:
-                // We could emit a "NavigateToDetail" effect.
-                // For now, assume the UI calls onNavigateToDetail inside the event handler or after.
-                // Actually the prompt says: "kullanıcı tıklamasını da event olarak gönderebiliriz"
-                // I'll just keep this handler available.
             }
         }
     }
@@ -104,12 +98,15 @@ class PortfolioViewModel @Inject constructor(
         domainAssets = assets
 
         // Map Assets to UI Model
-        val uiAssets = assets.map { asset ->
-            assetUiMapper.map(
-                AssetUiMapper.Input(
-                    asset = asset,
-                    currency = currency,
-                    exchangeRate = 1.0
+        val uiAssets = mutableListOf<AssetUiModel>()
+        assets.forEach { asset ->
+            uiAssets.add(
+                assetUiMapper.map(
+                    AssetUiMapper.Input(
+                        asset = asset,
+                        currency = currency,
+                        exchangeRate = 1.0
+                    )
                 )
             )
         }
@@ -131,8 +128,6 @@ class PortfolioViewModel @Inject constructor(
                 totalBalance = totalBalance,
                 currency = currency,
                 exchangeRate = 1.0,
-                // Ensure all categories are expanded by default if first load?
-                // Or preserve existing state? Preserve existing.
             )
         }
         
@@ -151,8 +146,6 @@ class PortfolioViewModel @Inject constructor(
                      value = totalValue,
                      label = type.name, 
                      category = type,
-                     //titleResId = type.titleResId 
-                     // TODO fix title representation if titleResId goes away
                      titleResId = -1
                  )
              }
@@ -174,7 +167,7 @@ class PortfolioViewModel @Inject constructor(
             val percent = if (totalValue > 0) (item.value / totalValue) * 100 else 0.0
             item.copy(
                 formattedPercentage = formatter.formatDistribution(percent),
-                formattedValue = formatter.formatCurrency(item.value, currency) // Use proper currency formatting
+                formattedValue = formatter.formatCurrency(item.value, currency)
             )
         }
         
@@ -183,7 +176,7 @@ class PortfolioViewModel @Inject constructor(
          _uiState.update { 
              it.copy(
                  pieChartData = finalData,
-                 formattedTotalBalance = formattedTotal // Update total formatted balanced
+                 formattedTotalBalance = formattedTotal
              ) 
          }
     }

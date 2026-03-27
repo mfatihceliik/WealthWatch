@@ -39,7 +39,7 @@ class GetPortfolioDashboardUseCase @Inject constructor(
             val domainAssetsUpdated = assetsWithTx.map { assetWithTx ->
                 val asset = assetWithTx.asset
                 val liveData = marketData[asset.marketAsset.symbol]
-                val currentPrice = liveData?.price ?: asset.marketAsset.currentPrice
+                val currentPrice = liveData?.currentPrice ?: asset.marketAsset.currentPrice
                 
                 totalBalanceInUsd += asset.totalAmount * currentPrice
                 asset.copy(marketAsset = asset.marketAsset.copy(currentPrice = currentPrice))

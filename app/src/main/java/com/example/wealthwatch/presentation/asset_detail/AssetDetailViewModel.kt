@@ -73,13 +73,6 @@ class AssetDetailViewModel
                 getExchangeRatesUseCase()
             ) { assetWithTransactions, currency, rates ->
 
-                // Calculate Rate
-                /*val rate = when (currency) {
-                    AppCurrency.USD -> 1.0
-                    AppCurrency.TRY -> rates[CurrencyPairs.USDT_TRY] ?: 1.0
-                    AppCurrency.EUR -> 1.0 / (rates[CurrencyPairs.EUR_USDT] ?: 1.0)
-                    AppCurrency.GBP -> 1.0 // Placeholder
-                }*/
                 val rate = 1.0
 
                 if (assetWithTransactions != null) {
@@ -152,8 +145,7 @@ class AssetDetailViewModel
                 deleteTransaction(event.transaction)
             }
 
-            else -> {} // Handle potential output events if they leak here (though onEvent is for
-            // inputs)
+            else -> {}
         }
     }
 

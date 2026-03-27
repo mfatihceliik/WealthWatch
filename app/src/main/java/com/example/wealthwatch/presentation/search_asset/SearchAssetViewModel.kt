@@ -7,7 +7,7 @@ import com.example.wealthwatch.domain.repository.local.search_history.SearchHist
 import com.example.wealthwatch.domain.repository.local.settings.SettingsRepository
 import com.example.wealthwatch.domain.use_case.search.GetSearchInitialDataUseCase
 import com.example.wealthwatch.domain.use_case.search.SearchAssetsUseCase
-import com.example.wealthwatch.domain.use_case.search.SearchInitialData
+import com.example.wealthwatch.domain.model.search.SearchInitialData
 import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.base.ScreenState
 import com.example.wealthwatch.presentation.main.topbar.TopBarEvent
@@ -38,7 +38,6 @@ class SearchAssetViewModel @Inject constructor(
     private var searchJob: Job? = null
     private var fullInitialData: SearchInitialData? = null
     private var currentCurrency: AppCurrency = AppCurrency.USD
-    private var currentExchangeRate: Double = 1.0
 
     init {
         // Initial state is loading, so TopBar should be hidden (or search hidden)
@@ -140,9 +139,10 @@ class SearchAssetViewModel @Inject constructor(
             searchAssetsUseCase(query).collect { result ->
                 when(result) {
                     is Resource.Success -> {
-                        val assets = result.data
-                        val uiModels = assets.map { asset ->
-                            assetUiMapper.mapToNative(asset)
+                        val assets = result.data ?: emptyList()
+                        val uiModels = mutableListOf<AssetUiModel>()
+                        assets.forEach { asset ->
+                            uiModels.add(assetUiMapper.mapToNative(asset))
                         }
                         _uiState.update { it.copy(searchResults = uiModels) }
                     }
@@ -165,12 +165,11 @@ class SearchAssetViewModel @Inject constructor(
             val filteredTop = filterAssets(data.topMovers, filter)
             val filteredSuggested = filterAssets(data.suggestedAssets, filter)
             
-            val topUi = filteredTop.map { 
-                assetUiMapper.mapToNative(it) 
-            }
-            val suggestedUi = filteredSuggested.map { 
-                assetUiMapper.mapToNative(it) 
-            }
+            val topUi = mutableListOf<AssetUiModel>()
+            filteredTop.forEach { topUi.add(assetUiMapper.mapToNative(it)) }
+
+            val suggestedUi = mutableListOf<AssetUiModel>()
+            filteredSuggested.forEach { suggestedUi.add(assetUiMapper.mapToNative(it)) }
 
             _uiState.update {
                 it.copy(
