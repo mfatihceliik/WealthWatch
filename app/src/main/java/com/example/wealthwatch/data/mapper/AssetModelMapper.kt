@@ -4,11 +4,11 @@ import com.example.wealthwatch.core.mapper.BaseMapper
 import com.example.wealthwatch.data.remote.model.AssetModel
 import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.model.asset.AssetType
-import jakarta.inject.Inject
+import javax.inject.Inject
 
-class AssetModelMapper @Inject constructor() {
+class AssetModelMapper @Inject constructor(): BaseMapper<AssetModel, MarketAsset>() {
 
-    fun map(input: AssetModel): MarketAsset = MarketAsset(
+    override fun map(input: AssetModel): MarketAsset = MarketAsset(
         symbol = input.symbol ?: "",
         name = input.name ?: "",
         type = AssetType.fromCode(input.assetType?.name ?: ""),

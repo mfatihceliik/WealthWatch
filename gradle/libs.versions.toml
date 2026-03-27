@@ -1,6 +1,6 @@
 [versions]
-agp = "8.11.0-alpha03"
-kotlin = "2.1.0"
+agp = "9.1.0"
+kotlin = "2.2.10"
 coreKtx = "1.17.0"
 coreSplashscreen = "1.0.1"
 junit = "4.13.2"
@@ -16,14 +16,14 @@ coil = "2.7.0"
 composeMaterialIcons = "1.7.8"
 kotlinxSerializationJson = "1.8.0"
 
-appcompat = "1.7.0"
+appcompat = "1.7.1"
 
 # Modern Tech Stack
-hilt = "2.57.2"
+hilt = "2.59.2"
 room = "2.8.4"
 retrofit = "3.0.0"
 okhttp = "5.3.2"
-ksp = "2.1.0-1.0.29"
+ksp = "2.3.2"
 vico = "2.0.0-alpha.12"
 accompanist = "0.36.0"
 
@@ -86,7 +86,6 @@ vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = 
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }

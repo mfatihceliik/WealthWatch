@@ -23,35 +23,37 @@ class AssetUiMapper @Inject constructor(
     data class Input(
         val asset: PortfolioAsset,
         val currency: AppCurrency = AppCurrency.USD,
-        val exchangeRate: Double
+        val exchangeRate: Double,
+        val isFavorite: Boolean = false
     )
 
     suspend fun map(input: Input): AssetUiModel {
-        return mapToCurrency(input.asset, input.currency, input.exchangeRate)
+        return mapToCurrency(input.asset, input.currency, input.exchangeRate, input.isFavorite)
     }
 
-    suspend fun mapToNative(asset: PortfolioAsset): AssetUiModel {
+    suspend fun mapToNative(asset: PortfolioAsset, isFavorite: Boolean = false): AssetUiModel {
         val (nativeCurrency, rate) = when (asset.marketAsset.type.name.uppercase()) {
             "BIST" -> Pair(AppCurrency.TRY, 1.0)
             "US_STOCK", "CRYPTO", "COMMODITY" -> Pair(AppCurrency.USD, 1.0)
             else -> Pair(AppCurrency.USD, 1.0) 
         }
-        return mapToCurrency(asset, nativeCurrency, rate)
+        return mapToCurrency(asset, nativeCurrency, rate, isFavorite)
     }
 
-    suspend fun mapToNative(asset: MarketAsset): AssetUiModel {
+    suspend fun mapToNative(asset: MarketAsset, isFavorite: Boolean = false): AssetUiModel {
         val (nativeCurrency, rate) = when (asset.type.name.uppercase()) {
             "BIST" -> Pair(AppCurrency.TRY, 1.0)
             "US_STOCK", "CRYPTO", "COMMODITY" -> Pair(AppCurrency.USD, 1.0)
             else -> Pair(AppCurrency.USD, 1.0) 
         }
-        return mapToCurrency(asset, nativeCurrency, rate)
+        return mapToCurrency(asset, nativeCurrency, rate, isFavorite)
     }
 
     suspend fun mapToCurrency(
         asset: MarketAsset,
         currency: AppCurrency,
-        exchangeRate: Double
+        exchangeRate: Double,
+        isFavorite: Boolean = false
     ): AssetUiModel {
         return withContext(defaultDispatcher) {
             try {
@@ -77,7 +79,8 @@ class AssetUiMapper @Inject constructor(
                     formattedProfitLoss = formatter.formatPercentage(0.0),
                     formattedProfitLossValue = formatter.formatProfitLossValue(0.0, currency),
                     isProfit = false,
-                    trend = trend
+                    trend = trend,
+                    isFavorite = isFavorite
                 )
             } catch (e: Exception) {
                 AssetUiModel()
@@ -88,7 +91,8 @@ class AssetUiMapper @Inject constructor(
     suspend fun mapToCurrency(
         asset: PortfolioAsset,
         currency: AppCurrency,
-        exchangeRate: Double
+        exchangeRate: Double,
+        isFavorite: Boolean = false
     ): AssetUiModel {
         return withContext(defaultDispatcher) {
             try {
@@ -130,7 +134,8 @@ class AssetUiMapper @Inject constructor(
                         profitLoss, currency
                     ),
                     isProfit = profitLoss >= 0,
-                    trend = trend
+                    trend = trend,
+                    isFavorite = isFavorite
                 )
             } catch (e: Exception) {
                 AssetUiModel()

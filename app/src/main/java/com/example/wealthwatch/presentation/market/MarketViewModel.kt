@@ -11,6 +11,7 @@ import com.example.wealthwatch.domain.use_case.settings.GetCurrencyUseCase
 import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.base.ScreenState
 import com.example.wealthwatch.presentation.mapper.AssetUiMapper
+import com.example.wealthwatch.presentation.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -33,10 +34,6 @@ class MarketViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository,
     private val assetUiMapper: AssetUiMapper,
 ) : BaseViewModel() {
-
-    companion object {
-        private val TAG = this::class.java.simpleName
-    }
 
     private val _uiState: MutableStateFlow<MarketUiState> = MutableStateFlow(MarketUiState())
     val uiState: StateFlow<MarketUiState> = _uiState.asStateFlow()
@@ -92,31 +89,31 @@ class MarketViewModel @Inject constructor(
                 }
             }
         }.flowOn(Dispatchers.Default).catch { e ->
-                e.printStackTrace()
-                _uiState.update {
-                    it.copy(
-                        screenState = ScreenState.ERROR, message = e.message ?: "Unknown Error"
-                    )
+            e.printStackTrace()
+            _uiState.update {
+                it.copy(
+                    screenState = ScreenState.ERROR, message = e.message ?: "Unknown Error"
+                )
+            }
+        }.collect { resource ->
+            when (resource) {
+                is Resource.Loading -> {
+                    _uiState.update { it.copy(screenState = ScreenState.LOADING) }
                 }
-            }.collect { resource ->
-                when (resource) {
-                    is Resource.Loading -> {
-                        _uiState.update { it.copy(screenState = ScreenState.LOADING) }
-                    }
 
-                    is Resource.Error -> {
-                        _uiState.update {
-                            it.copy(
-                                screenState = ScreenState.ERROR, message = resource.message
-                            )
-                        }
+                is Resource.Error -> {
+                    _uiState.update {
+                        it.copy(
+                            screenState = ScreenState.ERROR, message = resource.message
+                        )
                     }
+                }
 
-                    is Resource.Success -> {
-                        updateUiWithDashboard(resource.data)
-                    }
+                is Resource.Success -> {
+                    updateUiWithDashboard(resource.data)
                 }
             }
+        }
     }
 
     private suspend fun updateUiWithDashboard(data: MarketDashboard) =
@@ -124,30 +121,25 @@ class MarketViewModel @Inject constructor(
             val (market, _, _, currency, totalBalance) = data
 
             try {
-                // Wait for all mappings to complete in parallel to reduce processing time significantly.
-                // assetUiMapper.mapToNative already switches context internally if needed,
-                // but running the iterations concurrently maximizes performance on the Default dispatcher.
-                val pulseDeferred = async { market.pulse.map { assetUiMapper.mapToNative(it) } }
-                val cryptoGainersDeferred =
-                    async { market.crypto.gainers.map { assetUiMapper.mapToNative(it) } }
-                val cryptoLosersDeferred =
-                    async { market.crypto.losers.map { assetUiMapper.mapToNative(it) } }
-                val usStockGainersDeferred =
-                    async { market.usStock.gainers.map { assetUiMapper.mapToNative(it) } }
-                val usStockLosersDeferred =
-                    async { market.usStock.losers.map { assetUiMapper.mapToNative(it) } }
-                val trStockGainersDeferred =
-                    async { market.trStock.gainers.map { assetUiMapper.mapToNative(it) } }
-                val trStockLosersDeferred =
-                    async { market.trStock.losers.map { assetUiMapper.mapToNative(it) } }
-                val currencyGainersDeferred =
-                    async { market.currency.gainers.map { assetUiMapper.mapToNative(it) } }
-                val currencyLosersDeferred =
-                    async { market.currency.losers.map { assetUiMapper.mapToNative(it) } }
-                val commodityGainersDeferred =
-                    async { market.commodity.gainers.map { assetUiMapper.mapToNative(it) } }
-                val commodityLosersDeferred =
-                    async { market.commodity.losers.map { assetUiMapper.mapToNative(it) } }
+                // To call suspend mapToNative within map, we must use a context that supports it, like coroutineScope
+                // or just call mapToNative directly in a loop/map if it were not suspend.
+                // Since it is suspend, we use a custom extension or loop.
+                
+                suspend fun List<com.example.wealthwatch.domain.model.asset.MarketAsset>.mapToUi(): List<AssetUiModel> {
+                    return this.map { assetUiMapper.mapToNative(it) }
+                }
+
+                val pulseDeferred = async { market.pulse.mapToUi() }
+                val cryptoGainersDeferred = async { market.crypto.gainers.mapToUi() }
+                val cryptoLosersDeferred = async { market.crypto.losers.mapToUi() }
+                val usStockGainersDeferred = async { market.usStock.gainers.mapToUi() }
+                val usStockLosersDeferred = async { market.usStock.losers.mapToUi() }
+                val trStockGainersDeferred = async { market.trStock.gainers.mapToUi() }
+                val trStockLosersDeferred = async { market.trStock.losers.mapToUi() }
+                val currencyGainersDeferred = async { market.currency.gainers.mapToUi() }
+                val currencyLosersDeferred = async { market.currency.losers.mapToUi() }
+                val commodityGainersDeferred = async { market.commodity.gainers.mapToUi() }
+                val commodityLosersDeferred = async { market.commodity.losers.mapToUi() }
 
                 _uiState.update {
                     it.copy(

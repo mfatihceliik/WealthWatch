@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.compose.compiler.gradle.ComposeFeatureFlag
-
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
     alias(libs.plugins.kotlin.serialization)
@@ -48,6 +45,8 @@ android {
         compilerOptions {
             // Kotlin 2.0+ için JVM hedefi
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
+            // KT-73255: @Inject gibi annotation'ların param ve property'e uygulanmasi
+            freeCompilerArgs.add("-Xannotation-default-target=param-property")
         }
     }
     buildFeatures {
@@ -89,7 +88,7 @@ dependencies {
     // Retrofit
     implementation(libs.retrofit)
     implementation(libs.okhttp.logging)
-    implementation("io.socket:socket.io-client:2.1.0")
+    implementation("io.socket:socket.io-client:2.1.2")
 
     // Material
     implementation(libs.androidx.compose.material.icons.extended)

@@ -1,7 +1,8 @@
 package com.example.wealthwatch.domain.use_case.watchlist
 
 import com.example.wealthwatch.core.util.SocketState
-import com.example.wealthwatch.domain.model.crypto.Crypto
+import com.example.wealthwatch.domain.model.asset.AssetType
+import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.repository.local.watchlist.WatchlistRepository
 import com.example.wealthwatch.domain.repository.remote.crypto.CryptoRepository
 import jakarta.inject.Inject
@@ -13,7 +14,7 @@ class GetWatchlistStreamUseCase @Inject constructor(
     private val cryptoRepository: CryptoRepository,
     private val repository: WatchlistRepository
 ) {
-    operator fun invoke(): Flow<List<Crypto>> {
+    operator fun invoke(): Flow<List<MarketAsset>> {
         val watchlistFlow = repository.getWatchlist()
 
         val marketMapFlow = cryptoRepository.tickerUpdate().map { state ->
@@ -28,16 +29,15 @@ class GetWatchlistStreamUseCase @Inject constructor(
             watchlist.map { entity ->
                 val liveData = marketMap[entity.symbol]
 
-                Crypto(
+                MarketAsset(
                     symbol = entity.symbol,
                     name = entity.name,
-                    priceChange = liveData?.priceChange ?: "0.0",
-                    priceChangePercent = liveData?.priceChangePercent ?: entity.priceChangePercent,
-                    price = liveData?.price ?: entity.price.toDoubleOrNull() ?: 0.0,
-                    volume = liveData?.volume ?: "0.0",
-                    quoteVolume = liveData?.quoteVolume ?: entity.volume,
-                    iconUrl = entity.iconUrl,
-                    type = com.example.wealthwatch.domain.model.asset.AssetType.CRYPTO
+                    icon = entity.iconUrl ?: "",
+                    type = AssetType.fromCode(entity.assetType),
+                    currentPrice = liveData?.currentPrice ?: entity.price.toDoubleOrNull() ?: 0.0,
+                    priceChange = liveData?.priceChange ?: 0.0,
+                    priceChangePercent = liveData?.priceChangePercent ?: entity.priceChangePercent.toDoubleOrNull() ?: 0.0,
+                    volume = liveData?.volume ?: 0.0
                 )
             }
         }

@@ -2,15 +2,14 @@ package com.example.wealthwatch.data.mapper
 
 import com.example.wealthwatch.core.mapper.BaseMapper
 import com.example.wealthwatch.data.remote.model.CommoditiesModel
-import com.example.wealthwatch.domain.model.commodities.Commodities
-import com.example.wealthwatch.core.util.WealthWatchFormatter
 import com.example.wealthwatch.domain.model.asset.AssetType
+import com.example.wealthwatch.domain.model.asset.MarketAsset
 import jakarta.inject.Inject
 
-class CommoditiesMapper @Inject constructor() : BaseMapper<CommoditiesModel, Commodities>() {
-    override fun map(input: CommoditiesModel): Commodities {
+class CommoditiesMapper @Inject constructor() : BaseMapper<CommoditiesModel, MarketAsset>() {
+    override fun map(input: CommoditiesModel): MarketAsset {
 
-        val type = when(input.type) {
+        val type = when (input.type) {
             AssetType.CRYPTO.code -> AssetType.CRYPTO
             AssetType.US_STOCK.code -> AssetType.US_STOCK
             AssetType.TR_STOCK.code -> AssetType.TR_STOCK
@@ -19,16 +18,15 @@ class CommoditiesMapper @Inject constructor() : BaseMapper<CommoditiesModel, Com
             else -> AssetType.OTHER
         }
 
-        return Commodities(
+        return MarketAsset(
             symbol = input.symbol,
             name = input.name,
+            icon = input.iconUrl ?: "",
             type = type,
-            price = input.price,
-            change = input.change,
+            currentPrice = input.price,
+            priceChange = input.change,
+            priceChangePercent = 0.0,
             volume = input.volume,
-            marketCap = input.marketCap,
-            sector = input.sector,
-            iconUrl = input.iconUrl
         )
     }
 }

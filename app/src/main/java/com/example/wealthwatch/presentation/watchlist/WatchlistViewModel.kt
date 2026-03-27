@@ -7,7 +7,7 @@ import com.example.wealthwatch.domain.use_case.watchlist.GetWatchlistStreamUseCa
 import com.example.wealthwatch.domain.use_case.watchlist.ToggleWatchlistUseCase
 import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.base.ScreenState
-import com.example.wealthwatch.presentation.mapper.CryptoUiMapper
+import com.example.wealthwatch.presentation.mapper.AssetUiMapper
 import com.example.wealthwatch.presentation.model.AssetUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
@@ -22,7 +22,7 @@ class WatchlistViewModel @Inject constructor(
     private val getWatchlistStreamUseCase: GetWatchlistStreamUseCase,
     private val toggleWatchlistUseCase: ToggleWatchlistUseCase,
     private val settingsRepository: SettingsRepository,
-    private val cryptoUiMapper: CryptoUiMapper
+    private val assetUiMapper: AssetUiMapper
 ) : BaseViewModel() {
 
     private val _uiState = MutableStateFlow(WatchlistState())
@@ -50,7 +50,7 @@ class WatchlistViewModel @Inject constructor(
                     }
                 } else {
                     val cryptoList = tickers.map {
-                         cryptoUiMapper.mapToNative(it)
+                         assetUiMapper.mapToNative(it, isFavorite = true)
                     }
 
                     _uiState.update {

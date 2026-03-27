@@ -7,7 +7,7 @@ import com.example.wealthwatch.core.util.toSocketState
 import com.example.wealthwatch.data.mapper.CurrencyMapper
 import com.example.wealthwatch.data.remote.BaseDataSource
 import com.example.wealthwatch.data.remote.SocketService
-import com.example.wealthwatch.domain.model.currency.Currency
+import com.example.wealthwatch.domain.model.asset.MarketAsset
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,16 +19,16 @@ class RemoteCurrencyDataSource @Inject constructor(
     private val currencyMapper: CurrencyMapper
 ) : BaseDataSource(), CurrencyDataSource {
 
-    override fun currencyTickerUpdate(): Flow<SocketState<List<Currency>>> = socketService.currencyTickerUpdate().toSocketState { currencyMapper(it) }
+    override fun currencyTickerUpdate(): Flow<SocketState<List<MarketAsset>>> = socketService.currencyTickerUpdate().toSocketState { currencyMapper(it) }
 
-    override fun getCurrencies(): Flow<Resource<List<Currency>>> =
+    override fun getCurrencies(): Flow<Resource<List<MarketAsset>>> =
         getResult { apiService.getCurrencies() }.map { resource ->
             resource.mapData { paginatedResponse ->
                 currencyMapper(paginatedResponse.data)
             }
         }
 
-    override fun searchCurrencies(query: String): Flow<Resource<List<Currency>>> =
+    override fun searchCurrencies(query: String): Flow<Resource<List<MarketAsset>>> =
         getResult { apiService.searchCurrencies(query = query) }.map { resource ->
             resource.mapData { paginatedResponse ->
                 currencyMapper(paginatedResponse.data)
@@ -38,18 +38,17 @@ class RemoteCurrencyDataSource @Inject constructor(
     override fun getCurrencyRates(): Flow<Resource<CurrencyRateResponse>> =
         getResult { apiService.getCurrencyRates() }
 
-    override fun getCurrencyGainers(): Flow<Resource<List<Currency>>> =
+    override fun getCurrencyGainers(): Flow<Resource<List<MarketAsset>>> =
         getResult { apiService.getCurrencyGainers() }.map { resource ->
             resource.mapData { paginatedResponse ->
                 currencyMapper(paginatedResponse.data)
             }
         }
 
-    override fun getCurrencyLosers(): Flow<Resource<List<Currency>>> =
+    override fun getCurrencyLosers(): Flow<Resource<List<MarketAsset>>> =
         getResult { apiService.getCurrencyLosers() }.map { resource ->
             resource.mapData { paginatedResponse ->
                 currencyMapper(paginatedResponse.data)
             }
         }
-
 }
