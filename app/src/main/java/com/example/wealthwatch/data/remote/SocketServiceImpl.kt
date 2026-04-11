@@ -1,7 +1,7 @@
 package com.example.wealthwatch.data.remote
 
 import android.util.Log
-import com.example.wealthwatch.data.remote.model.CurrencyModel
+import com.example.wealthwatch.data.remote.model.ExchangeModel
 import com.example.wealthwatch.data.remote.model.CryptoModel
 import com.example.wealthwatch.data.remote.model.StockModel
 import com.example.wealthwatch.di.ApplicationScope
@@ -85,7 +85,7 @@ class SocketServiceImpl @Inject constructor(
 
     override fun cryptoTickerUpdate(): Flow<List<CryptoModel>> = tickerFlow
 
-    private val currencyFlow: SharedFlow<List<CurrencyModel>> = callbackFlow {
+    private val currencyFlow: SharedFlow<List<ExchangeModel>> = callbackFlow {
         val listener: (Array<Any>) -> Unit = { args ->
             val data = args.firstOrNull()
             if (data != null) {
@@ -93,7 +93,7 @@ class SocketServiceImpl @Inject constructor(
                 launch(dispatcherDefault) {
                     try {
                         val jsonString = data.toString()
-                        val currencies = json.decodeFromString<List<CurrencyModel>>(jsonString)
+                        val currencies = json.decodeFromString<List<ExchangeModel>>(jsonString)
                         trySend(currencies)
                     } catch (e: Exception) {
                         Log.e("MarketSocket", "Currency Parse Error: ${e.message}")
@@ -113,7 +113,7 @@ class SocketServiceImpl @Inject constructor(
         replay = 1
     )
 
-    override fun currencyTickerUpdate(): Flow<List<CurrencyModel>> = currencyFlow
+    override fun currencyTickerUpdate(): Flow<List<ExchangeModel>> = currencyFlow
 
     private val stockFlow: SharedFlow<List<StockModel>> = callbackFlow {
         val listener: (Array<Any>) -> Unit = { args ->

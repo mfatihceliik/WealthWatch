@@ -15,7 +15,7 @@ class WealthWatchInfoProvider @Inject constructor(
 
     override val versionName: String
         get() = try {
-            context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "Unknown"
+            context.packageManager.getPackageInfo(context.packageName, 0).versionName ?: "0.0"
         } catch (e: Exception) {
             "Unknown"
         }

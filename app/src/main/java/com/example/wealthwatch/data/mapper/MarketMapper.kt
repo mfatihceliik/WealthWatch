@@ -12,24 +12,30 @@ class MarketMapper @Inject constructor() : BaseMapper<MarketModel, MarketAsset>(
 
     override fun map(input: MarketModel): MarketAsset {
 
-        val type = when(input.type) {
-            AssetType.CRYPTO.code -> AssetType.CRYPTO
-            AssetType.US_STOCK.code -> AssetType.US_STOCK
-            AssetType.TR_STOCK.code -> AssetType.TR_STOCK
-            AssetType.CURRENCY.code -> AssetType.CURRENCY
-            AssetType.COMMODITY.code -> AssetType.COMMODITY
+        val type = when {
+            input.assetType != null -> AssetType.fromCode(input.assetType.name)
+            input.type.isNotEmpty() -> AssetType.fromCode(input.type)
+            input.assetTypeId != null -> when (input.assetTypeId) {
+                1 -> AssetType.US_STOCK
+                2 -> AssetType.BIST
+                3 -> AssetType.CRYPTO
+                4 -> AssetType.COMMODITY
+                5 -> AssetType.EXCHANGE
+                else -> AssetType.OTHER
+            }
             else -> AssetType.OTHER
         }
+
 
         return MarketAsset(
             symbol = input.symbol,
             name = input.name,
             icon = input.iconUrl,
             type = type,
-            currentPrice = input.price,
-            priceChange = input.priceChange,
-            priceChangePercent = input.priceChangePercent,
-            volume = input.volume,
+            currentPrice = input.price ?: input.lastPrice ?: 0.0,
+            priceChange = input.priceChange ?: 0.0,
+            priceChangePercent = input.priceChangePercent ?: input.changePercent ?: 0.0,
+            volume = input.volume ?: 0.0
         )
     }
     fun map(input: MarketCategoryModel): MarketCategory {

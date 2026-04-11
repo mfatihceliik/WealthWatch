@@ -73,6 +73,7 @@
     <string name="category_tr_stock">BIST</string>
     <string name="category_currency">Currencies</string>
     <string name="category_commodity">Commodities</string>
+    <string name="category_exchange">Exchange</string>
     <string name="section_gainers">Top Gainers</string>
     <string name="section_losers">Top Losers</string>
     <string name="desc_expand">Expand</string>

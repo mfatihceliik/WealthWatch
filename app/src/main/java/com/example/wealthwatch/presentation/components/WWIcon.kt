@@ -98,8 +98,8 @@ fun WWIcon(
     val spacing = AppTheme.spacing
     val placeholderRes = when (type) {
         AssetType.CRYPTO -> R.drawable.crypto_default
-        AssetType.US_STOCK, AssetType.TR_STOCK -> R.drawable.stock_default
-        AssetType.CURRENCY -> R.drawable.currency_default
+        AssetType.US_STOCK, AssetType.BIST -> R.drawable.stock_default
+        AssetType.EXCHANGE -> R.drawable.currency_default
         AssetType.COMMODITY -> R.drawable.currency_default
         AssetType.OTHER -> R.drawable.currency_default
         else -> R.drawable.currency_default

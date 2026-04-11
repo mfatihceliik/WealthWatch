@@ -1,6 +1,7 @@
 package com.example.wealthwatch.presentation.market
 
 import com.example.wealthwatch.core.util.Resource
+import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.model.market.MarketDashboard
 import com.example.wealthwatch.domain.model.settings.AppCurrency
 import com.example.wealthwatch.domain.repository.local.settings.SettingsRepository
@@ -125,7 +126,7 @@ class MarketViewModel @Inject constructor(
                 // or just call mapToNative directly in a loop/map if it were not suspend.
                 // Since it is suspend, we use a custom extension or loop.
                 
-                suspend fun List<com.example.wealthwatch.domain.model.asset.MarketAsset>.mapToUi(): List<AssetUiModel> {
+                suspend fun List<MarketAsset>.mapToUi(): List<AssetUiModel> {
                     return this.map { assetUiMapper.mapToNative(it) }
                 }
 
@@ -134,10 +135,10 @@ class MarketViewModel @Inject constructor(
                 val cryptoLosersDeferred = async { market.crypto.losers.mapToUi() }
                 val usStockGainersDeferred = async { market.usStock.gainers.mapToUi() }
                 val usStockLosersDeferred = async { market.usStock.losers.mapToUi() }
-                val trStockGainersDeferred = async { market.trStock.gainers.mapToUi() }
-                val trStockLosersDeferred = async { market.trStock.losers.mapToUi() }
-                val currencyGainersDeferred = async { market.currency.gainers.mapToUi() }
-                val currencyLosersDeferred = async { market.currency.losers.mapToUi() }
+                val bistGainersDeferred = async { market.bist.gainers.mapToUi() }
+                val bistLosersDeferred = async { market.bist.losers.mapToUi() }
+                val currencyGainersDeferred = async { market.exchange.gainers.mapToUi() }
+                val currencyLosersDeferred = async { market.exchange.losers.mapToUi() }
                 val commodityGainersDeferred = async { market.commodity.gainers.mapToUi() }
                 val commodityLosersDeferred = async { market.commodity.losers.mapToUi() }
 
@@ -152,10 +153,10 @@ class MarketViewModel @Inject constructor(
                         cryptoLosers = cryptoLosersDeferred.await(),
                         usStockGainers = usStockGainersDeferred.await(),
                         usStockLosers = usStockLosersDeferred.await(),
-                        trStockGainers = trStockGainersDeferred.await(),
-                        trStockLosers = trStockLosersDeferred.await(),
-                        currencyGainers = currencyGainersDeferred.await(),
-                        currencyLosers = currencyLosersDeferred.await(),
+                        bistGainers = bistGainersDeferred.await(),
+                        bistLosers = bistLosersDeferred.await(),
+                        exchangeGainers = currencyGainersDeferred.await(),
+                        exchangeLosers = currencyLosersDeferred.await(),
                         commodityGainers = commodityGainersDeferred.await(),
                         commodityLosers = commodityLosersDeferred.await(),
                     )

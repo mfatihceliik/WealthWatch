@@ -6,8 +6,8 @@ data class Market(
     val pulse: List<MarketAsset>,
     val crypto: MarketCategory,
     val usStock: MarketCategory,
-    val trStock: MarketCategory,
-    val currency: MarketCategory,
+    val bist: MarketCategory,
+    val exchange: MarketCategory,
     val commodity: MarketCategory
 )
 

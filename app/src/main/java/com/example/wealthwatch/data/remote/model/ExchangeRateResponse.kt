@@ -4,9 +4,9 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CurrencyRateResponse(
+data class ExchangeRateResponse(
     @SerialName("base") val base: String,
-    @SerialName("rates") val rates: Map<String, CurrencyRateDetail>
+    @SerialName("rates") val rates: Map<String, ExchangeRateDetail>
 )
 
 

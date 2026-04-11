@@ -97,14 +97,34 @@ class SettingsRepositoryImpl @Inject constructor(
             prefs.edit { putString(KEY_THEME, theme.name) }
         }
         _theme.emit(theme)
+        applyTheme(theme)
+    }
+
+    private fun applyTheme(theme: WWTheme) {
+        val mode = when (theme) {
+            WWTheme.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            WWTheme.DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            WWTheme.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        AppCompatDelegate.setDefaultNightMode(mode)
+    }
+
+    override fun applyAppConfigs() {
+        applyTheme(_theme.value)
+        applyLocale(_language.value)
     }
 
     override suspend fun setLanguage(language: AppLanguage) {
         withContext(Dispatchers.IO) {
             prefs.edit { putString(KEY_LANGUAGE, language.code) }
         }
-        // AppCompatDelegate.setApplicationLocales is handled in the UI/Activity based on this state.
         _language.emit(language)
+        applyLocale(language)
+    }
+
+    private fun applyLocale(language: AppLanguage) {
+        val appLocale = LocaleListCompat.forLanguageTags(language.code)
+        AppCompatDelegate.setApplicationLocales(appLocale)
     }
 
     override fun getLanguage(): Flow<AppLanguage> = _language.asStateFlow()

@@ -13,10 +13,10 @@ data class MarketOverviewResponse(
     val crypto: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("us_stock")
     val usStock: MarketCategoryModel = MarketCategoryModel(),
-    @SerialName("tr_stock")
+    @SerialName("bist")
     val trStock: MarketCategoryModel = MarketCategoryModel(),
-    @SerialName("currency")
-    val currency: MarketCategoryModel = MarketCategoryModel(),
+    @SerialName("exchange")
+    val exchange: MarketCategoryModel = MarketCategoryModel(),
     @SerialName("commodity")
     val commodity: MarketCategoryModel = MarketCategoryModel()
 )

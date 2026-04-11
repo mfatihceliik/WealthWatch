@@ -19,6 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.example.wealthwatch.presentation.components.WWIcon
 import com.example.wealthwatch.presentation.components.WWCard
 import com.example.wealthwatch.presentation.components.WWText
+import com.example.wealthwatch.presentation.components.asset.AssetIcon
 import com.example.wealthwatch.presentation.components.percentColor
 import com.example.wealthwatch.presentation.model.AssetUiModel
 import com.example.wealthwatch.ui.theme.AppTheme
@@ -47,8 +48,13 @@ fun MarketItem(
                 horizontalArrangement = Arrangement.spacedBy(spacing.spaceExtraSmall),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                WWIcon(
+                /*WWIcon(
                     modifier = Modifier.size(spacing.defaultIcon),
+                    iconUrl = asset.icon,
+                    type = asset.type,
+                )*/
+
+                AssetIcon(
                     iconUrl = asset.icon,
                     type = asset.type,
                 )

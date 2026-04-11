@@ -12,8 +12,8 @@ class StockMapper @Inject constructor() : BaseMapper<StockModel, MarketAsset>() 
         val type = when (input.type) {
             AssetType.CRYPTO.code -> AssetType.CRYPTO
             AssetType.US_STOCK.code -> AssetType.US_STOCK
-            AssetType.TR_STOCK.code -> AssetType.TR_STOCK
-            AssetType.CURRENCY.code -> AssetType.CURRENCY
+            AssetType.BIST.code -> AssetType.BIST
+            AssetType.EXCHANGE.code -> AssetType.EXCHANGE
             AssetType.COMMODITY.code -> AssetType.COMMODITY
             else -> AssetType.OTHER
         }

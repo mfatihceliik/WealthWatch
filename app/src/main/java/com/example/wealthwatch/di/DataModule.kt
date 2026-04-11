@@ -6,8 +6,8 @@ import com.example.wealthwatch.data.remote.SocketServiceImpl
 import com.example.wealthwatch.data.remote.commodity.CommodityDataSource
 import com.example.wealthwatch.data.remote.commodity.RemoteCommodityDataSource
 import com.example.wealthwatch.data.remote.crypto.RemoteCryptoDataSource
-import com.example.wealthwatch.data.remote.currency.CurrencyDataSource
-import com.example.wealthwatch.data.remote.currency.RemoteCurrencyDataSource
+import com.example.wealthwatch.data.remote.currency.ExchangeDataSource
+import com.example.wealthwatch.data.remote.currency.RemoteExchangeDataSource
 import com.example.wealthwatch.data.remote.market.MarketDataSource
 import com.example.wealthwatch.data.remote.market.RemoteMarketDataSource
 import com.example.wealthwatch.data.remote.stock.RemoteStockDataSource
@@ -45,7 +45,7 @@ abstract class CryptoDataModule {
 
     @Binds
     @Singleton
-    abstract fun bindCurrencyDataSource(impl: RemoteCurrencyDataSource): CurrencyDataSource
+    abstract fun bindCurrencyDataSource(impl: RemoteExchangeDataSource): ExchangeDataSource
 
     @Binds
     @Singleton

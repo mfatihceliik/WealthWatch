@@ -9,7 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.compose.runtime.collectAsState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.wealthwatch.R
 import com.example.wealthwatch.presentation.common.BaseScreen
 import com.example.wealthwatch.presentation.market.components.ExpandableMarketCategory
@@ -26,7 +26,7 @@ fun MarketScreen(
     marketViewModel: MarketViewModel = hiltViewModel(),
     onNavigate: (Route) -> Unit
 ) {
-    val uiState by marketViewModel.uiState.collectAsState()
+    val uiState by marketViewModel.uiState.collectAsStateWithLifecycle()
     val navigateAssetDetail: (AssetUiModel) -> Unit = { asset ->
         onNavigate(Route.AssetDetail(asset.symbol, asset.type.code))
     }
@@ -58,11 +58,47 @@ fun MarketScreen(
                 )
             }
             
-            if (uiState.trStockGainers.isNotEmpty()) {
+            if (uiState.bistGainers.isNotEmpty()) {
                 item(key = "major_indices") {
                     MajorIndices(
-                        indices = uiState.trStockGainers,
+                        indices = uiState.bistGainers,
                         onItemClick = navigateAssetDetail
+                    )
+                }
+            }
+
+            // 1. US STOCKS GROUP
+            item(key = "us_stock") {
+                ExpandableMarketCategory(title = stringResource(R.string.category_us_stock)) {
+                    MarketRowSection(
+                        title = stringResource(R.string.section_gainers),
+                        assets = uiState.usStockGainers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Gainer
+                    )
+                    MarketRowSection(
+                        title = stringResource(R.string.section_losers),
+                        assets = uiState.usStockLosers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Loser
+                    )
+                }
+            }
+
+            // 2. BIST (TR) STOCKS GROUP
+            item(key = "bist") {
+                ExpandableMarketCategory(title = stringResource(R.string.category_tr_stock)) {
+                    MarketRowSection(
+                        title = stringResource(R.string.section_gainers),
+                        assets = uiState.bistGainers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Gainer
+                    )
+                    MarketRowSection(
+                        title = stringResource(R.string.section_losers),
+                        assets = uiState.bistLosers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Loser
                     )
                 }
             }
@@ -85,61 +121,7 @@ fun MarketScreen(
                 }
             }
 
-            // 4. US STOCKS GROUP
-            item(key = "us_stock") {
-                ExpandableMarketCategory(title = stringResource(R.string.category_us_stock)) {
-                    MarketRowSection(
-                        title = stringResource(R.string.section_gainers),
-                        assets = uiState.usStockGainers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Gainer
-                    )
-                    MarketRowSection(
-                        title = stringResource(R.string.section_losers),
-                        assets = uiState.usStockLosers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Loser
-                    )
-                }
-            }
-
-            // 5. BIST (TR) STOCKS GROUP
-            item(key = "tr_stock") {
-                ExpandableMarketCategory(title = stringResource(R.string.category_tr_stock)) {
-                    MarketRowSection(
-                        title = stringResource(R.string.section_gainers),
-                        assets = uiState.trStockGainers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Gainer
-                    )
-                    MarketRowSection(
-                        title = stringResource(R.string.section_losers),
-                        assets = uiState.trStockLosers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Loser
-                    )
-                }
-            }
-
-            // 6. CURRENCIES GROUP
-            item(key = "currency") {
-                ExpandableMarketCategory(title = stringResource(R.string.category_currency)) {
-                    MarketRowSection(
-                        title = stringResource(R.string.section_gainers),
-                        assets = uiState.currencyGainers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Gainer
-                    )
-                    MarketRowSection(
-                        title = stringResource(R.string.section_losers),
-                        assets = uiState.currencyLosers,
-                        onItemClick = navigateAssetDetail,
-                        sectionType = SectionType.Loser
-                    )
-                }
-            }
-
-            // 7. COMMODITIES GROUP
+            // 4. COMMODITIES GROUP
             item(key = "commodity") {
                 ExpandableMarketCategory(title = stringResource(R.string.category_commodity)) {
                     MarketRowSection(
@@ -151,6 +133,24 @@ fun MarketScreen(
                     MarketRowSection(
                         title = stringResource(R.string.section_losers),
                         assets = uiState.commodityLosers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Loser
+                    )
+                }
+            }
+
+            // 5. EXCHANGE GROUP
+            item(key = "exchange") {
+                ExpandableMarketCategory(title = stringResource(R.string.category_exchange)) {
+                    MarketRowSection(
+                        title = stringResource(R.string.section_gainers),
+                        assets = uiState.exchangeGainers,
+                        onItemClick = navigateAssetDetail,
+                        sectionType = SectionType.Gainer
+                    )
+                    MarketRowSection(
+                        title = stringResource(R.string.section_losers),
+                        assets = uiState.exchangeLosers,
                         onItemClick = navigateAssetDetail,
                         sectionType = SectionType.Loser
                     )

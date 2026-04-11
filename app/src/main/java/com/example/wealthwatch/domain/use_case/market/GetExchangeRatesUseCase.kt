@@ -2,7 +2,7 @@ package com.example.wealthwatch.domain.use_case.market
 
 import com.example.wealthwatch.core.util.SocketState
 import com.example.wealthwatch.domain.repository.local.settings.SettingsRepository
-import com.example.wealthwatch.domain.repository.remote.currency.CurrencyRepository
+import com.example.wealthwatch.domain.repository.remote.currency.ExchangeRepository
 import javax.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 
 class GetExchangeRatesUseCase @Inject constructor(
-    private val repository: CurrencyRepository,
+    private val repository: ExchangeRepository,
     private val settingsRepository: SettingsRepository
 ) {
     operator fun invoke(): Flow<Map<String, Double>> {
@@ -22,7 +22,7 @@ class GetExchangeRatesUseCase @Inject constructor(
                         currency.symbol to currency.currentPrice
                     }
                 } else {
-                    emptyMap<String, Double>()
+                    emptyMap()
                 }
             }
             .onEach { map ->

@@ -3,7 +3,7 @@ package com.example.wealthwatch.di
 import com.example.wealthwatch.data.repository.AssetRepositoryImpl
 import com.example.wealthwatch.data.repository.CommodityRepositoryImpl
 import com.example.wealthwatch.data.repository.CryptoRepositoryImpl
-import com.example.wealthwatch.data.repository.CurrencyRepositoryImpl
+import com.example.wealthwatch.data.repository.ExchangeRepositoryImpl
 import com.example.wealthwatch.data.repository.SearchHistoryRepositoryImpl
 import com.example.wealthwatch.data.repository.SettingsRepositoryImpl
 import com.example.wealthwatch.data.repository.StockRepositoryImpl
@@ -16,7 +16,7 @@ import com.example.wealthwatch.domain.repository.local.transaction.TransactionRe
 import com.example.wealthwatch.domain.repository.local.watchlist.WatchlistRepository
 import com.example.wealthwatch.domain.repository.remote.commodity.CommodityRepository
 import com.example.wealthwatch.domain.repository.remote.crypto.CryptoRepository
-import com.example.wealthwatch.domain.repository.remote.currency.CurrencyRepository
+import com.example.wealthwatch.domain.repository.remote.currency.ExchangeRepository
 import com.example.wealthwatch.domain.repository.remote.stock.StockRepository
 import com.example.wealthwatch.data.repository.MarketRepositoryImpl
 import com.example.wealthwatch.domain.repository.remote.market.MarketRepository
@@ -45,7 +45,7 @@ abstract class CryptoRepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindCurrencyRepository(currencyRepositoryImpl: CurrencyRepositoryImpl): CurrencyRepository
+    abstract fun bindCurrencyRepository(currencyRepositoryImpl: ExchangeRepositoryImpl): ExchangeRepository
 
     @Binds
     @Singleton

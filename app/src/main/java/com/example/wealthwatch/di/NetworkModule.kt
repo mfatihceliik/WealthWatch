@@ -2,7 +2,7 @@ package com.example.wealthwatch.di
 
 import com.example.wealthwatch.data.remote.commodity.CommodityApiService
 import com.example.wealthwatch.data.remote.crypto.CryptoApiService
-import com.example.wealthwatch.data.remote.currency.CurrencyApiService
+import com.example.wealthwatch.data.remote.currency.ExchangeApiService
 import com.example.wealthwatch.data.remote.stock.StockApiService
 import com.example.wealthwatch.data.remote.market.MarketApiService
 import com.example.wealthwatch.data.remote.search.SearchApiService
@@ -78,8 +78,8 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideCurrencyApiService(@WWRetrofit retrofit: Retrofit): CurrencyApiService =
-        retrofit.create(CurrencyApiService::class.java)
+    fun provideCurrencyApiService(@WWRetrofit retrofit: Retrofit): ExchangeApiService =
+        retrofit.create(ExchangeApiService::class.java)
 
     @Provides
     @Singleton

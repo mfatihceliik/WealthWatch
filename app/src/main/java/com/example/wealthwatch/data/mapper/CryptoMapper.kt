@@ -12,8 +12,8 @@ class CryptoMapper @Inject constructor() : BaseMapper<CryptoModel, MarketAsset>(
         val type = when (input.type) {
             AssetType.CRYPTO.code -> AssetType.CRYPTO
             AssetType.US_STOCK.code -> AssetType.US_STOCK
-            AssetType.TR_STOCK.code -> AssetType.TR_STOCK
-            AssetType.CURRENCY.code -> AssetType.CURRENCY
+            AssetType.BIST.code -> AssetType.BIST
+            AssetType.EXCHANGE.code -> AssetType.EXCHANGE
             AssetType.COMMODITY.code -> AssetType.COMMODITY
             else -> AssetType.OTHER
         }
@@ -21,12 +21,12 @@ class CryptoMapper @Inject constructor() : BaseMapper<CryptoModel, MarketAsset>(
         return MarketAsset(
             symbol = input.symbol,
             name = input.name,
-            icon = input.iconUrl ?: "",
+            icon = input.iconUrl,
             type = type,
             currentPrice = input.lastPrice.toDoubleOrNull() ?: 0.0,
             priceChangePercent = input.priceChangePercent.toDoubleOrNull() ?: 0.0,
             priceChange = input.priceChange.toDoubleOrNull() ?: 0.0,
-            volume = input.quoteVolume.toDoubleOrNull() ?: 0.0, // quoteVolume used for sorting
+            volume = input.quoteVolume.toDoubleOrNull() ?: 0.0,
         )
     }
 }

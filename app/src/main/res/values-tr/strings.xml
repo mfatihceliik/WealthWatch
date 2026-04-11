@@ -2,7 +2,7 @@
     <string name="app_name">WealthWatch</string>
 
     <!-- Navigation -->
-    <string name="nav_portfolio">Portfolyö</string>
+    <string name="nav_portfolio">Portfoy</string>
     <string name="nav_add">Ekle</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="watchlist">İzleme Listesi</string>
@@ -94,6 +94,7 @@
     <string name="category_tr_stock">Borsa Istanbul (BIST)</string>
     <string name="category_currency">Para Birimleri</string>
     <string name="category_commodity">Emtialar</string>
+    <string name="category_exchange">Döviz</string>
     <string name="section_gainers">En Çok Kazananlar</string>
     <string name="section_losers">En Çok Kaybedenler</string>
     <string name="desc_expand">Genişlet</string>

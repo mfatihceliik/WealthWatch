@@ -81,8 +81,8 @@ fun PortfolioScreen(
                     val titleRes = when(section.type) {
                         AssetType.CRYPTO -> R.string.category_crypto
                         AssetType.US_STOCK -> R.string.category_us_stock
-                        AssetType.TR_STOCK -> R.string.category_tr_stock
-                        AssetType.CURRENCY -> R.string.category_currency
+                        AssetType.BIST -> R.string.category_tr_stock
+                        AssetType.EXCHANGE -> R.string.category_currency
                         AssetType.COMMODITY -> R.string.category_commodity
                         else -> R.string.other
                     }

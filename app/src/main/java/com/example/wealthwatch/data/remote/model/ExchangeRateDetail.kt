@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CurrencyRateDetail(
+data class ExchangeRateDetail(
     @SerialName("name") val name: String,
     @SerialName("type") val type: String = "",
     @SerialName("price") val price: Double,

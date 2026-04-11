@@ -21,8 +21,8 @@ class MarketRepositoryImpl @Inject constructor(
                     pulse = response.pulse.map { marketMapper.map(it) },
                     crypto = marketMapper.map(response.crypto),
                     usStock = marketMapper.map(response.usStock),
-                    trStock = marketMapper.map(response.trStock),
-                    currency = marketMapper.map(response.currency),
+                    bist = marketMapper.map(response.trStock),
+                    exchange = marketMapper.map(response.exchange),
                     commodity = marketMapper.map(response.commodity)
                 )
             }

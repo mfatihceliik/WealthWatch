@@ -12,6 +12,7 @@ interface SettingsRepository {
     fun getLanguage(): Flow<AppLanguage>
     fun getCurrentLanguage(): AppLanguage
     suspend fun setLanguage(language: AppLanguage)
+    fun applyAppConfigs()
     fun getCurrency(): Flow<AppCurrency>
     suspend fun setCurrency(currency: AppCurrency)
     fun getExchangeRates(): Flow<Map<String, Double>>

@@ -8,7 +8,7 @@ import com.example.wealthwatch.domain.model.asset.AssetType
 data class WatchlistEntity(
     @PrimaryKey val symbol: String,
     val name: String = "",
-    val assetType: AssetType = AssetType.CURRENCY,
+    val assetType: AssetType = AssetType.EXCHANGE,
     val iconUrl: String = "",
     val price: String = "0.00",
     val priceChangePercent: String = "0.00",

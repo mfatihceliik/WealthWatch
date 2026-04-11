@@ -15,6 +15,6 @@ abstract class AppModule {
     @Binds
     @Singleton
     abstract fun bindAppInfoProvider(
-            wealthWatchInfoProvider: WealthWatchInfoProvider
+        wealthWatchInfoProvider: WealthWatchInfoProvider
     ): AppInfoProvider
 }

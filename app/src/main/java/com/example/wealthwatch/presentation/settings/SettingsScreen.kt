@@ -46,13 +46,16 @@ import com.example.wealthwatch.ui.theme.WealthWatchTheme
 
 @Composable
 fun SettingsScreen(
-    viewModel: SettingsViewModel = hiltViewModel(), onNavigate: (Route) -> Unit
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onNavigate: (Route) -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    //val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val settingsState by viewModel.settingsState.collectAsStateWithLifecycle()
     val spacing = AppTheme.spacing
 
     BaseScreen(
-        state = uiState, viewModel = viewModel
+        state = settingsState,
+        viewModel = viewModel
     ) {
         Column(
             modifier = Modifier
@@ -61,8 +64,8 @@ fun SettingsScreen(
         ) {
             // Profile Header
             SettingsProfileHeader(
-                name = uiState.userName,
-                email = uiState.userEmail,
+                name = settingsState.userName,
+                email = settingsState.userEmail,
                 onEditClick = { /* Navigate to Edit Profile */ },
                 onLoginClick = { /* Navigate to Login */ })
 
@@ -74,7 +77,6 @@ fun SettingsScreen(
 
             WWCard(
                 modifier = Modifier.fillMaxWidth(),
-                padding = 0.dp // Handle padding internally in items
             ) {
                 SettingsItem(
                     icon = Icons.Default.Person,
@@ -113,7 +115,7 @@ fun SettingsScreen(
                     icon = Icons.Filled.Nightlight, // Or Nightlight
                     title = stringResource(R.string.settings_dark_mode),
                     isSwitch = true,
-                    isChecked = uiState.theme == WWTheme.DARK,
+                    isChecked = settingsState.theme == WWTheme.DARK,
                     onCheckedChange = { isChecked ->
                         viewModel.setTheme(if (isChecked) WWTheme.DARK else WWTheme.LIGHT)
                     })
@@ -123,7 +125,7 @@ fun SettingsScreen(
 
             // Logout Button
             // Show logout only if user is logged in (optional check, or keep it always)
-            if (uiState.userName != "") {
+            if (settingsState.userName != "") {
                 Button(
                     onClick = { /* Handle Logout */ },
                     modifier = Modifier
@@ -153,7 +155,7 @@ fun SettingsScreen(
                 modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center
             ) {
                 WWText(
-                    text = "WealthWatch v${uiState.appVersion}",
+                    text = "WealthWatch v${settingsState.appVersion}",
                     style = AppTheme.typography.labelMedium,
                     color = AppTheme.colors.onSurfaceVariant.copy(alpha = 0.5f)
                 )

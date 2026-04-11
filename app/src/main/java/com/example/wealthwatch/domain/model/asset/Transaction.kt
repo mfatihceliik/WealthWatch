@@ -1,7 +1,5 @@
 package com.example.wealthwatch.domain.model.asset
 
-import java.util.UUID
-
 data class Transaction(
     val id: Int = 0,
     val assetSymbol: String,

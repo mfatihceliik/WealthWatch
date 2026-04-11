@@ -4,7 +4,7 @@ import com.example.wealthwatch.presentation.base.BaseUiState
 import com.example.wealthwatch.presentation.base.ScreenState
 
 data class SecurityUiState(
-    override val screenState: ScreenState = ScreenState.LOADING,
+    override val screenState: ScreenState = ScreenState.HAS_DATA,
     override val message: String = "",
     val isAppLockEnabled: Boolean = false,
     val isBiometricAvailable: Boolean = false,

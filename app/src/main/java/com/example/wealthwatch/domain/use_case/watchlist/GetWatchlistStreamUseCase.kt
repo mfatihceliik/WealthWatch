@@ -1,7 +1,6 @@
 package com.example.wealthwatch.domain.use_case.watchlist
 
 import com.example.wealthwatch.core.util.SocketState
-import com.example.wealthwatch.domain.model.asset.AssetType
 import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.repository.local.watchlist.WatchlistRepository
 import com.example.wealthwatch.domain.repository.remote.crypto.CryptoRepository
@@ -21,7 +20,7 @@ class GetWatchlistStreamUseCase @Inject constructor(
             if (state is SocketState.Connected) {
                 state.data.associateBy { it.symbol }
             } else {
-                emptyMap<String, MarketAsset>()
+                emptyMap()
             }
         }
 
@@ -32,8 +31,8 @@ class GetWatchlistStreamUseCase @Inject constructor(
                 MarketAsset(
                     symbol = entity.symbol,
                     name = entity.name,
-                    icon = entity.iconUrl ?: "",
-                    type = AssetType.fromCode(entity.assetType),
+                    icon = entity.iconUrl,
+                    type = entity.assetType,
                     currentPrice = liveData?.currentPrice ?: entity.price.toDoubleOrNull() ?: 0.0,
                     priceChange = liveData?.priceChange ?: 0.0,
                     priceChangePercent = liveData?.priceChangePercent ?: entity.priceChangePercent.toDoubleOrNull() ?: 0.0,

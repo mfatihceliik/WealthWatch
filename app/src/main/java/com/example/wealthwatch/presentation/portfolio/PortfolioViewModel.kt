@@ -2,6 +2,7 @@ package com.example.wealthwatch.presentation.portfolio
 
 import com.example.wealthwatch.core.util.Resource
 import com.example.wealthwatch.core.util.WealthWatchFormatter
+import com.example.wealthwatch.domain.model.asset.AssetType
 import com.example.wealthwatch.domain.model.asset.PortfolioAsset
 import com.example.wealthwatch.domain.model.portfolio.PortfolioDashboard
 import com.example.wealthwatch.domain.model.settings.AppCurrency
@@ -113,7 +114,7 @@ class PortfolioViewModel @Inject constructor(
         
 
         // Group Assets by Type (Pre-calculation for UI)
-        val sections = com.example.wealthwatch.domain.model.asset.AssetType.entries.mapNotNull { type ->
+        val sections = AssetType.entries.mapNotNull { type ->
             val assetsInType = uiAssets.filter { it.type == type }
             if (assetsInType.isNotEmpty()) {
                 PortfolioAssetSection(type = type, assets = assetsInType)

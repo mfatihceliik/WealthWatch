@@ -3,7 +3,6 @@ package com.example.wealthwatch.presentation.main
 import com.example.wealthwatch.domain.repository.local.settings.SettingsRepository
 import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.base.ScreenState
-import com.example.wealthwatch.presentation.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -16,40 +15,26 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val settingsRepository: SettingsRepository
 ) : BaseViewModel() {
-    private val _uiState: MutableStateFlow<MainUiState> = MutableStateFlow(
-        MainUiState(screenState = ScreenState.HAS_DATA)
-    )
+
+    private val _uiState = MutableStateFlow(MainUiState())
     val uiState: StateFlow<MainUiState> = _uiState.asStateFlow()
 
-    companion object {
-        private val TAG = "MainViewModel"
-    }
-
     private var hasUnlocked = false
+
+    init {
+        observeSettings()
+    }
 
     fun unlock() {
         hasUnlocked = true
         _uiState.update { it.copy(isLocked = false) }
     }
 
-
-    init {
-        collect()
-    }
-
-    fun collect() {
+    private fun observeSettings() {
         launch {
-            combine(
-                settingsRepository.getTheme(),
-                settingsRepository.getLanguage(),
-                settingsRepository.getAppLockEnabled()
-            ) { theme, language, isAppLockEnabled ->
-                Triple(theme, language, isAppLockEnabled)
-            }.collect { (theme, language, isAppLockEnabled) ->
+            settingsRepository.getAppLockEnabled().collect { isAppLockEnabled ->
                 _uiState.update {
                     it.copy(
-                        theme = theme,
-                        language = language,
                         isLocked = isAppLockEnabled && !hasUnlocked,
                         screenState = ScreenState.HAS_DATA
                     )

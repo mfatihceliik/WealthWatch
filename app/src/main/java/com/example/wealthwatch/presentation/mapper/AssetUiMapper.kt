@@ -1,18 +1,16 @@
 package com.example.wealthwatch.presentation.mapper
 
-import com.example.wealthwatch.core.mapper.BaseMapper
 import com.example.wealthwatch.domain.model.PriceTrend
 import com.example.wealthwatch.domain.model.asset.PortfolioAsset
 import com.example.wealthwatch.domain.model.asset.MarketAsset
 import com.example.wealthwatch.domain.model.settings.AppCurrency
 import com.example.wealthwatch.presentation.model.AssetUiModel
-import kotlinx.coroutines.withContext
-import javax.inject.Inject
-import javax.inject.Singleton
-
 import com.example.wealthwatch.core.util.WealthWatchFormatter
 import com.example.wealthwatch.di.DispatcherDefault
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
 class AssetUiMapper @Inject constructor(
@@ -29,15 +27,6 @@ class AssetUiMapper @Inject constructor(
 
     suspend fun map(input: Input): AssetUiModel {
         return mapToCurrency(input.asset, input.currency, input.exchangeRate, input.isFavorite)
-    }
-
-    suspend fun mapToNative(asset: PortfolioAsset, isFavorite: Boolean = false): AssetUiModel {
-        val (nativeCurrency, rate) = when (asset.marketAsset.type.name.uppercase()) {
-            "BIST" -> Pair(AppCurrency.TRY, 1.0)
-            "US_STOCK", "CRYPTO", "COMMODITY" -> Pair(AppCurrency.USD, 1.0)
-            else -> Pair(AppCurrency.USD, 1.0) 
-        }
-        return mapToCurrency(asset, nativeCurrency, rate, isFavorite)
     }
 
     suspend fun mapToNative(asset: MarketAsset, isFavorite: Boolean = false): AssetUiModel {
