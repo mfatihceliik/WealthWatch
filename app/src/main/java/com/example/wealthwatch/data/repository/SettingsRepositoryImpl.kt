@@ -9,12 +9,10 @@ import com.example.wealthwatch.domain.model.settings.AppLanguage
 import com.example.wealthwatch.domain.model.settings.WWTheme
 import com.example.wealthwatch.domain.repository.local.settings.SettingsRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.json.JSONObject
 import java.util.Locale

@@ -15,7 +15,7 @@
     <string name="delete">Sil</string>
     <string name="save">Kaydet</string>
     <string name="search_hint">Hisse, kripto, döviz ara.</string>
-    <string name="loading">Yükleniyor...</string>
+    <string name="loading">Yükleniyor…</string>
     <string name="error_unknown">Bir hata oluştu</string>
     <string name="retry">Tekrar Dene</string>
 

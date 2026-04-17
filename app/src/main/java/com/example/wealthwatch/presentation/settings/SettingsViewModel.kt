@@ -1,6 +1,5 @@
 package com.example.wealthwatch.presentation.settings
 
-import androidx.lifecycle.viewModelScope
 import com.example.wealthwatch.R
 import com.example.wealthwatch.core.provider.AppInfoProvider
 import com.example.wealthwatch.domain.model.settings.AppCurrency
@@ -12,11 +11,9 @@ import com.example.wealthwatch.presentation.base.BaseViewModel
 import com.example.wealthwatch.presentation.main.topbar.TopBarEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 

@@ -12,7 +12,7 @@
     <string name="delete">Delete</string>
     <string name="save">Save</string>
     <string name="search_hint">Search stock, crypto, currency..</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="error_unknown">Unknown error occurred</string>
     <string name="retry">Retry</string>
     <string name="market_empty">No coins found.</string>

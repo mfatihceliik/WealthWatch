@@ -138,7 +138,7 @@ class SearchAssetViewModel @Inject constructor(
             searchAssetsUseCase(query).collect { result ->
                 when(result) {
                     is Resource.Success -> {
-                        val assets = result.data ?: emptyList()
+                        val assets = result.data
                         val uiModels = mutableListOf<AssetUiModel>()
                         assets.forEach { asset ->
                             uiModels.add(assetUiMapper.mapToNative(asset))
